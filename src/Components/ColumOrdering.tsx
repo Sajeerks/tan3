@@ -29,16 +29,19 @@ import { json2csv } from 'json-2-csv';
     const [rowselection, setrowselection] = useState({})
 
     const orderArr = Object.keys( {
+      select:"number",
         id: "number",
         first_name: "string",
         last_name: "string",
         email: "string",
-        gender: "string",
-        ip_address: "string",
+        // gender: "string",
+        // ip_address: "string",
         phone: "string",
         date: "string",
     })
+    // console.log({orderArr});
     const [columOrder, setcolumOrder] = useState<string[]>([...orderArr])
+    const [columnVisibilty, setcolumnVisibilty] = useState({})
 
 
   
@@ -55,7 +58,8 @@ import { json2csv } from 'json-2-csv';
         globalFilter:globalFitlers,
         columnFilters:columnFilters,
         rowSelection:rowselection,
-        columnOrder:columOrder
+        columnOrder:columOrder,
+        columnVisibility:columnVisibilty,
         
 
       },
@@ -67,7 +71,7 @@ import { json2csv } from 'json-2-csv';
     //  enableRowSelection:row=>row.original.gender ==="male"
     enableRowSelection:true,
   onColumnOrderChange:setcolumOrder,
-
+onColumnVisibilityChange:setcolumnVisibilty,
 
       
 
@@ -112,12 +116,45 @@ let csv:string ="";
 
     return (
       <>
+          <div>
+        <label>
+          <input
+            {...{
+              type: "checkbox",
+              checked: tableInstance.getIsAllColumnsVisible(),
+              onChange: tableInstance.getToggleAllColumnsVisibilityHandler(),
+            }}
+          />{" "}
+          Toggle All
+        </label>
+        <hr />
+        {tableInstance.getAllLeafColumns().map((column) => {
+          return (
+            <div key={column.id}>
+              <label>
+                <input
+                  {...{
+                    type: "checkbox",
+                    checked: column.getIsVisible(),
+                    onChange: column.getToggleVisibilityHandler(),
+                  }}
+                />{" "}
+                {column.id}
+              </label>
+            </div>
+          );
+        })}
+      </div>
       <hr />
       <CSVLink data={csv}>Download me</CSVLink>;
       {/* <CSVDownload data={data} target="_blank" />; */}
       <hr />
-      <button onClick={()=>setcolumOrder(columOrder=>{
-        return 
+      <button onClick={()=>setcolumOrder(columOrder=> {
+        let arrangerArr = [...columOrder]
+           arrangerArr.push(arrangerArr.shift()!)
+          //  console.log({arrangerArr});
+           return arrangerArr
+          // return["email", "phone"]
       })}>Column Order Change</button>
       <div>
      <input value={globalFitlers} onChange={e=>setglobalFitlers(e.target.value)} placeholder="global filter"/>

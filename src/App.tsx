@@ -18,13 +18,13 @@ const App = () => {
   return (
    <>
    
-     {/* <BasicTable/> */}
+     <BasicTable/>
      {/* <SortingTable/> */}
      {/* <GloabalFilter/> */}
      {/* <ColumnFilter/> */}
      {/* <PaginatedTable/> */}
      {/* <RowSelection/> */}
-     <ColumOrdering/>
+     {/* <ColumOrdering/> */}
 
    </>
   )

@@ -1,9 +1,10 @@
 import {
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import sampleData from "../MOCK_DATA.json";
 import { ColumnBasic } from "./Columns";
 
@@ -15,14 +16,47 @@ const BasicTable = () => {
     return ColumnBasic;
   }, []);
 
+  const [namefilter, setnamefilter] = useState("")
+  const [emailFilter, setemailFilter] = useState("")
+
+
   const tableInstance = useReactTable({
     data: memoRizedData,
     columns: finalColum,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel:getFilteredRowModel(),
     columnResizeMode:"onChange",
   });
+
+  useEffect(() => {
+  tableInstance.getHeaderGroups().map(headerArr=>{
+  
+       headerArr.headers.map(columnEl=>{
+              
+                 if(columnEl.column.id ==="email"){
+                  // console.log( "columnEl.column.getFilterValue()--",columnEl.column.getFilterValue());
+
+                  columnEl.column.setFilterValue(emailFilter || "")
+                  // columnEl.column.setFilterValue("")
+
+                 }
+                 if(columnEl.column.id ==="first_name"){
+                    columnEl.column.setFilterValue(namefilter || "")
+                    // columnEl.column.setFilterValue("")
+                 }
+                
+             })
+
+  })
+
+  
+  }, [emailFilter, namefilter])
+  
   return (
     <>
+    <input type="text"  placeholder=" name fitler" value={namefilter} onChange={e=>setnamefilter(e.target.value)}/>
+
+    <input type="text"  placeholder=" email fitler" value={emailFilter} onChange={e=>setemailFilter(e.target.value)}/>
       <table        
          {...{
           style: {

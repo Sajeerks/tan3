@@ -16,6 +16,36 @@ export interface DataType{
     date: string;
 }
 
+function emailItemEdit(row:DataType){
+    if(row.email ==="qpidcock0@amazon.co.uk"){
+        // console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+        row.email ="xxxxxxxxxxxxxxx.com"
+        // console.log("rowwwwww",row);
+       return     row.email
+       }
+       return row.email
+
+
+}
+
+function emailFilterFunction(row:any, columId:any, filterValue:any){
+    // console.log("row being called=",row);
+    // console.log("columId being called=",columId);
+    // console.log("filterValue being called=",filterValue);
+    // console.log("row.original being called=",row.original);
+    
+  
+    if(columId ==="email"){
+      let test = row.original.email.includes(filterValue)
+      return test?true:false
+    }
+    if(columId ==="first_name"){
+      let test = row.original.email.includes(filterValue)
+      return test?true:false
+    }
+       return false
+  }
+
 export const ColumnBasic=[
 
 
@@ -32,6 +62,7 @@ export const ColumnBasic=[
 
         {
             accessorFn: (row:DataType)=>`${row.first_name} + ${row.last_name}`,
+            accessorKey:"first_name",
             header:"first_namedd + lastranme",
             // size:700,
         },
@@ -47,7 +78,10 @@ export const ColumnBasic=[
 
     {
         accessorKey:"email",
-        header:"email"
+        header:"email",
+        cell:(props:any)=><p style={{color:"red"}}>{props.getValue()}</p>,
+        accessorFn:emailItemEdit, 
+        filterFn:emailFilterFunction,
     },
     {
         accessorKey:"phone",
@@ -107,6 +141,7 @@ export const ColumnWithCheckBox=[
 
         {
             accessorFn: (row:DataType)=>`${row.first_name} + ${row.last_name}`,
+            accessorKey:"first_name",
             header:"first_namedd + lastranme",
             // size:700,
         },
@@ -122,7 +157,8 @@ export const ColumnWithCheckBox=[
 
     {
         accessorKey:"email",
-        header:"email"
+        cell:(props:any)=><p style={{color:"red"}}>{props.getValue()}</p>
+
     },
     {
         accessorKey:"phone",
