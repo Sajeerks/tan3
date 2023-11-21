@@ -6,9 +6,9 @@ import {
     getFilteredRowModel,
     getPaginationRowModel,
   } from "@tanstack/react-table";
-  import React, { useMemo, useState } from "react";
+  import  { useMemo, useState } from "react";
   import sampleData from "../MOCK_DATA.json";
-  import { ColumnBasic ,ColumnWithCheckBox} from "./Columns";
+  import {  ColumnWithCheckBox} from "./Columns";
 import Filter from "./FilterFunction";
 import { CSVLink } from "react-csv";
 import { json2csv } from 'json-2-csv';
@@ -309,9 +309,9 @@ let csv:string ="";
         <div>
          <button onClick={()=>tableInstance.setPageIndex(0)}>Frist page</button>
          <button disabled={!tableInstance.getCanNextPage()}   onClick={()=>tableInstance.nextPage()}>next Page</button>
-         <button disabled={!tableInstance.getCanPreviousPage()} onClick={e=>tableInstance.previousPage()}> prev Page</button>
+         <button disabled={!tableInstance.getCanPreviousPage()} onClick={()=>tableInstance.previousPage()}> prev Page</button>
 
-         <button onClick={e=>tableInstance.setPageIndex(tableInstance.getPageCount()-1)}>Last page</button>
+         <button onClick={()=>tableInstance.setPageIndex(tableInstance.getPageCount()-1)}>Last page</button>
          
 <hr />
 <ul>

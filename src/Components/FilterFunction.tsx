@@ -1,5 +1,5 @@
 import DebouncedInput from "./DebouncedInput";
-import React, { useMemo } from "react";
+import  { useMemo } from "react";
 
 function Filter({ column, table }:any) {
     const firstValue = table

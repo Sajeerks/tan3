@@ -6,11 +6,11 @@ import {
     getFilteredRowModel,
     getPaginationRowModel,
   } from "@tanstack/react-table";
-  import React, { useMemo, useState } from "react";
+  import { useMemo, useState } from "react";
   import sampleData from "../MOCK_DATA.json";
   import { ColumnBasic } from "./Columns";
 import Filter from "./FilterFunction";
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink} from "react-csv";
 import { json2csv } from 'json-2-csv';
   
   const BasicTable = () => {
@@ -244,15 +244,15 @@ let csv:string ="";
         <div>
          <button onClick={()=>tableInstance.setPageIndex(0)}>Frist page</button>
          <button disabled={!tableInstance.getCanNextPage()}   onClick={()=>tableInstance.nextPage()}>next Page</button>
-         <button disabled={!tableInstance.getCanPreviousPage()} onClick={e=>tableInstance.previousPage()}> prev Page</button>
+         <button disabled={!tableInstance.getCanPreviousPage()} onClick={()=>tableInstance.previousPage()}> prev Page</button>
 
-         <button onClick={e=>tableInstance.setPageIndex(tableInstance.getPageCount()-1)}>Last page</button>
+         <button onClick={()=>tableInstance.setPageIndex(tableInstance.getPageCount()-1)}>Last page</button>
          
 <hr />
 <ul>
     <li> total no of pages = {tableInstance.getPageCount()}</li>
     <li>you are in page number ={tableInstance.options.state.pagination?.pageIndex!}</li>
-    <li>jum to page = <input type="number" defaultValue={0}  onChange={e=>tableInstance.setPageIndex(Number(e.target.value))}/></li>
+    <li>jum to page = <input type="number" defaultValue={0}  onChange={(e)=>tableInstance.setPageIndex(Number(e.target.value))}/></li>
 
     <li><select value={tableInstance.options.state.pagination?.pageSize} onChange={e=>tableInstance.setPageSize(Number(e.target.value))}>
        {   [3,10,20,25,30,35,40,45,50].map(single=>{

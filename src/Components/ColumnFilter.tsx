@@ -5,11 +5,11 @@ import {
     getSortedRowModel,
     getFilteredRowModel,
   } from "@tanstack/react-table";
-  import React, { useMemo, useState } from "react";
+  import  { useMemo, useState } from "react";
   import sampleData from "../MOCK_DATA.json";
   import { ColumnBasic } from "./Columns";
 import Filter from "./FilterFunction";
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink } from "react-csv";
 import { json2csv } from 'json-2-csv';
   
   const BasicTable = () => {

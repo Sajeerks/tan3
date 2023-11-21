@@ -4,7 +4,7 @@ import {
   getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import React, { useEffect, useMemo, useState } from "react";
+import  { useEffect, useMemo, useState } from "react";
 import sampleData from "../MOCK_DATA.json";
 import { ColumnBasic } from "./Columns";
 
